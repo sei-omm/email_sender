@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 
 const mailOptions = {
   from: `"GitHub Actions" <${process.env.SMTP_USER}>`,
-  to: "recipient@example.com",
+  to: "locbilla@gmail.com",
   subject: "GitHub Actions Email Test",
   text: "Hello! This email was sent from a GitHub Actions workflow.",
 };
