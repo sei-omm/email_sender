@@ -3,7 +3,11 @@ github_pat_11BLWZ3RA0skMjk7Pwg0eZ_ptOqSfGlzlxOYRaT4wdSnywmmFaPIloqhZ4tvNaXq3H5VH
 https://api.github.com/repos/sei-omm/email_sender/actions/workflows/send-email.yml/dispatches
 https://api.github.com/repos/GITHUB_USER/REPONAME/actions/workflows/WORKFLOW_NAME.yml/dispatches
 Authorization: token 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
-{
+Header : {
+  Accept : application/vnd.github.v3+json
+  Content-Type : application/json
+}
+Body : {
   "ref": "main", // main branch
   "inputs": {
     "email": "appwalama@gmail.com",
