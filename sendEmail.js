@@ -41,9 +41,3 @@ transporter.sendMail(mailOptions, (error, info) => {
     console.log("✅ Email sent:", info.response);
   }
 });
-
-
-// Start the server and listen for incoming requests
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
