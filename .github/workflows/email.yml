@@ -39,3 +39,4 @@ jobs:
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
           TO_EMAIL: ${{ github.event.inputs.email }}
           USERNAME: ${{ github.event.inputs.username }}
+          OTHER : ${{ github.event.inputs }}
