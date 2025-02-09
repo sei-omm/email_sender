@@ -14,20 +14,21 @@ jobs:
   send_email:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository  # ✅ Ensures the repo files are available
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Debug File Structure  # ✅ Check if package.json exists
-        run: ls -R
+        run: |
+          pwd
+          ls -R
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-
-      - name: Install Dependencies  # ✅ If package.json is inside a subfolder, modify the path
-        run: npm install
-        working-directory: .  # Change this if your package.json is inside a subfolder (e.g., backend)
+      - name: Install Dependencies  # ✅ Only run if package.json exists
+        run: |
+          if [ -f package.json ]; then
+            npm install
+          else
+            echo "⚠️ No package.json found. Skipping npm install."
+          fi
 
       - name: Run Email Script
         run: node sendEmail.js
