@@ -11,7 +11,7 @@ const toEmail = process.env.TO_EMAIL;  // ✅ Get from API
 const username = process.env.USERNAME || "Guest";  // ✅ Get from API
 const other = process.env.OTHER || "{}";
 
-const parseOther = JSON.parse(other); // send a json be carefull
+const parseOther = JSON.parse(other.replaceAll(`'`, `"`)); // send a json be carefull
 
 // Read and compile EJS template
 const emailTemplate = fs.readFileSync("emailTemplate.ejs", "utf-8");
