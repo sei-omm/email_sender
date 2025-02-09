@@ -1,28 +1,40 @@
-require('dotenv').config();
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
+const ejs = require("ejs");
+const fs = require("fs");
+
+// Load environment variables
+const smtpHost = process.env.SMTP_HOST;
+const smtpPort = process.env.SMTP_PORT;
+const smtpUser = process.env.SMTP_USER;
+const smtpPass = process.env.SMTP_PASS;
+const toEmail = process.env.TO_EMAIL;  // ✅ Get from API
+const username = process.env.USERNAME || "Guest";  // ✅ Get from API
+
+// Read and compile EJS template
+const emailTemplate = fs.readFileSync("emailTemplate.ejs", "utf-8");
+const htmlContent = ejs.render(emailTemplate, { username });
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: false, // Use `true` for port 465, `false` for other ports
+  host: smtpHost,
+  port: smtpPort,
+  secure: smtpPort == 465, // Use TLS if port 465
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+    user: smtpUser,
+    pass: smtpPass,
   },
 });
 
 const mailOptions = {
-  from: `"GitHub Actions" <${process.env.SMTP_USER}>`,
-  to: "locbilla@gmail.com",
-  subject: "GitHub Actions Email Test",
-  text: "Hello! This email was sent from a GitHub Actions workflow.",
+  from: `"Your Company" <${smtpUser}>`,
+  to: toEmail,
+  subject: "Personalized Email for " + username,
+  html: htmlContent,
 };
 
 transporter.sendMail(mailOptions, (error, info) => {
   if (error) {
-    console.error("Error sending email:", error);
-    process.exit(1); // Fail the workflow if email fails
+    console.error("❌ Email failed:", error);
   } else {
-    console.log("Email sent:", info.response);
+    console.log("✅ Email sent:", info.response);
   }
 });
