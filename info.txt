@@ -1,0 +1,16 @@
+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 -> WORKFLOW TRIGGER KEY
+
+https://api.github.com/repos/sei-omm/email_sender/actions/workflows/send-email.yml/dispatches
+https://api.github.com/repos/GITHUB_USER/REPONAME/actions/workflows/WORKFLOW_NAME.yml/dispatches
+Authorization: token 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
+{
+  "ref": "main", // main branch
+  "inputs": {
+    "email": "appwalama@gmail.com",
+    "username": "Somnath Gupta"
+  }
+}
+
+
+// FOR CHECKING RATE LIMITING
+curl -H "Authorization: token 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" https://api.github.com/rate_limit
